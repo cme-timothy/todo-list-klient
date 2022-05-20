@@ -26,9 +26,9 @@ function Main() {
     getTodos();
   }, []);
 
-  function removeItem(id) {
-    const newList = [...items].filter((item) => item.id !== id);
-    setItems(newList);
+  async function removeItem(id) {
+    await axios.delete(`http://localhost:5000/api/todos/${id}`);
+    getTodos();
   }
 
   return (
