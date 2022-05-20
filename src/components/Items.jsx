@@ -15,7 +15,9 @@ function Items(props) {
         checkmarked: false,
       });
     } else if (active === false) {
-      await axios.patch(`http://localhost:5000/api/todos/${props.data.id}`, {
+      await axios.put(`http://localhost:5000/api/todos/${props.data.id}`, {
+        id: props.data.id,
+        title: props.data.title,
         checkmarked: true,
       });
     }
