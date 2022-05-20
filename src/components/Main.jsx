@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { nanoid } from "nanoid";
+import axios from "axios";
 import InputBox from "./InputBox";
 import ItemsList from "./ItemsList";
 import "./Main.css";
@@ -19,6 +20,16 @@ function Main() {
       ];
     });
   }
+
+  useEffect(() => {
+    async function getTodos() {
+      const response = await axios.get(
+        "http://localhost:5000/api/todos"
+      );
+      setItems(response.data);
+    }
+    getTodos();
+  }, []);
 
   function removeItem(id) {
     const newList = [...items].filter((item) => item.id !== id);
