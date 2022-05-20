@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import "./Items.css";
 import bin from "../assets/bin.svg";
 import checkmark from "../assets/checkmark.svg";
@@ -7,12 +8,16 @@ import empty from "../assets/empty.svg";
 function Items(props) {
   const [active, setActive] = useState(props.data.checkmarked);
 
-  function toggleCheckmark() {
+  async function toggleCheckmark() {
     setActive(!active);
     if (active === true) {
-      props.data.checkmarked = false;
+      await axios.patch(`http://localhost:5000/api/todos/${props.data.id}`, {
+        checkmarked: false,
+      });
     } else if (active === false) {
-      props.data.checkmarked = true;
+      await axios.patch(`http://localhost:5000/api/todos/${props.data.id}`, {
+        checkmarked: true,
+      });
     }
   }
 
