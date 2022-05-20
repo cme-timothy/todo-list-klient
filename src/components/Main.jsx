@@ -8,26 +8,21 @@ import "./Main.css";
 function Main() {
   const [items, setItems] = useState([]);
 
-  function addItem(title) {
-    setItems((prevItems) => {
-      return [
-        ...prevItems,
-        {
-          id: nanoid(),
-          title: title,
-          checkmarked: false,
-        },
-      ];
+  async function getTodos() {
+    const response = await axios.get("http://localhost:5000/api/todos");
+    setItems(response.data);
+  }
+
+  async function addItem(title) {
+    await axios.post("http://localhost:5000/api/todos", {
+      id: nanoid(),
+      title: title,
+      checkmarked: false,
     });
+    getTodos();
   }
 
   useEffect(() => {
-    async function getTodos() {
-      const response = await axios.get(
-        "http://localhost:5000/api/todos"
-      );
-      setItems(response.data);
-    }
     getTodos();
   }, []);
 
