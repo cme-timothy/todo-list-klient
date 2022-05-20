@@ -1,0 +1,29 @@
+.inputContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1.6em;
+}
+
+.inputBox {
+  width: 100%;
+  height: 1.2em;
+  font-size: 1.5rem;
+  padding: 0.04168em;
+}
+
+.addButton {
+  display: flex;
+  padding: 0;
+  font-size: 1.5rem;
+}
+
+.addButton {
+  margin-left: 0.2em;
+}
+
+.addPic {
+  width: 1.2em;
+  height: 100%;
+  padding: 0.04168em;
+}
