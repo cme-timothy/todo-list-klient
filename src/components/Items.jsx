@@ -11,15 +11,41 @@ function Items(props) {
   async function toggleCheckmark() {
     setActive(!active);
     if (active === true) {
-      await axios.patch(`http://localhost:5000/api/todos/${props.data.id}`, {
-        checkmarked: false,
-      });
+      await axios
+        .patch(`http://localhost:5000/api/todos/${props.data.id}`, {
+          checkmarked: false,
+        })
+        .catch(function (error) {
+          if (error.response) {
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+          } else if (error.request) {
+            console.log(error.request);
+          } else {
+            console.log("Error", error.message);
+          }
+          console.log(error.config);
+        });
     } else if (active === false) {
-      await axios.put(`http://localhost:5000/api/todos/${props.data.id}`, {
-        id: props.data.id,
-        title: props.data.title,
-        checkmarked: true,
-      });
+      await axios
+        .put(`http://localhost:5000/api/todos/${props.data.id}`, {
+          id: props.data.id,
+          title: props.data.title,
+          checkmarked: true,
+        })
+        .catch(function (error) {
+          if (error.response) {
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+          } else if (error.request) {
+            console.log(error.request);
+          } else {
+            console.log("Error", error.message);
+          }
+          console.log(error.config);
+        });
     }
   }
 
