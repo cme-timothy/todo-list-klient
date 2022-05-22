@@ -9,15 +9,17 @@ function Items(props) {
   const [active, setActive] = useState(props.data.checkmarked);
 
   async function toggleCheckmark() {
-    setActive(!active);
     if (active === true) {
       await axios
         .patch(`http://localhost:5000/api/todos/${props.data.id}`, {
           checkmarked: false,
         })
+        .then(function (response) {
+          console.log(response);
+          setActive(false);
+        })
         .catch(function (error) {
           if (error.response) {
-            console.log(error.response.data);
             console.log(error.response.status);
             console.log(error.response.headers);
           } else if (error.request) {
@@ -34,9 +36,12 @@ function Items(props) {
           title: props.data.title,
           checkmarked: true,
         })
+        .then(function (response) {
+          console.log(response);
+          setActive(true);
+        })
         .catch(function (error) {
           if (error.response) {
-            console.log(error.response.data);
             console.log(error.response.status);
             console.log(error.response.headers);
           } else if (error.request) {
@@ -52,7 +57,6 @@ function Items(props) {
   function handleRemoveItem() {
     const id = props.data.id;
     props.removeItem(id);
-    setActive(!active);
   }
 
   return (

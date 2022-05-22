@@ -11,11 +11,14 @@ function Main() {
   const [randomItemTitle, setRandomItemTitle] = useState();
 
   async function getItems() {
-    const response = await axios
+    await axios
       .get("http://localhost:5000/api/todos")
+      .then(function (response) {
+        console.log(response);
+        setItems(response.data);
+      })
       .catch(function (error) {
         if (error.response) {
-          console.log(error.response.data);
           console.log(error.response.status);
           console.log(error.response.headers);
         } else if (error.request) {
@@ -25,7 +28,6 @@ function Main() {
         }
         console.log(error.config);
       });
-    setItems(response.data);
   }
 
   async function addItem(title) {
@@ -35,9 +37,11 @@ function Main() {
         title: title,
         checkmarked: false,
       })
+      .then(function (response) {
+        console.log(response);
+      })
       .catch(function (error) {
         if (error.response) {
-          console.log(error.response.data);
           console.log(error.response.status);
           console.log(error.response.headers);
         } else if (error.request) {
@@ -54,11 +58,17 @@ function Main() {
         max = Math.floor(max);
         const number = Math.floor(Math.random() * (max - min) + min);
         const randomId = items[number].id;
-        const response = await axios
+        await axios
           .get(`http://localhost:5000/api/todos/${randomId}`)
+          .then(function (response) {
+            console.log(response);
+            if (items.length > 3 && randomItem === false) {
+              setRandomItem(true);
+              setRandomItemTitle(response.data);
+            }
+          })
           .catch(function (error) {
             if (error.response) {
-              console.log(error.response.data);
               console.log(error.response.status);
               console.log(error.response.headers);
             } else if (error.request) {
@@ -68,10 +78,6 @@ function Main() {
             }
             console.log(error.config);
           });
-        if (items.length > 3 && randomItem === false) {
-          setRandomItem(true);
-          setRandomItemTitle(response.data);
-        }
       }
       getRandomItem(0, items.length);
     }
@@ -84,9 +90,11 @@ function Main() {
   async function removeItem(id) {
     await axios
       .delete(`http://localhost:5000/api/todos/${id}`)
+      .then(function (response) {
+        console.log(response);
+      })
       .catch(function (error) {
         if (error.response) {
-          console.log(error.response.data);
           console.log(error.response.status);
           console.log(error.response.headers);
         } else if (error.request) {
