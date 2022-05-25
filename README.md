@@ -1,10 +1,11 @@
-# To-do list 
+# To-do list
 
-This is a simple to do list built for my first react assignment. This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a simple klient side to-do list for my first node.js web server assignment. This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Pre-requisites
 
 In order to install you need to run:
+
 - [Node.js](https://nodejs.org/en/)
 
 ## How to install
